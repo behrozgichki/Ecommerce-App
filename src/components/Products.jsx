@@ -12,6 +12,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import ProductCard from './components/ProductsCard'
 import Navbar from './Navbar'
+import CircularProgress from "@mui/material/CircularProgress";
 
 function ProductCardSkeleton() {
   return (
@@ -32,6 +33,7 @@ function ProductCardSkeleton() {
   )
 }
 
+
 export default function Products() {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -41,12 +43,12 @@ export default function Products() {
     setLoading(true)
     setError(null)
 
-    axios('https://kolzsticks.github.io/Free-Ecommerce-Products-Api/main/products.json')
+    axios('https://dummyjson.com/products')
       .then((res) => {
-        setProducts(res.data)
+        setProducts(res.data.products)
       })
       .catch((err) => {
-        setError(err.message)
+        setError(err)
       })
       .finally(() => {
         setLoading(false)
@@ -93,19 +95,37 @@ export default function Products() {
       )
     }
 
-    if (loading) {
-      return (
-        <Grid container spacing={3} justifyContent="center">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Grid key={i}>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <ProductCardSkeleton />
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      )
-    }
+ if (loading) {
+  return (
+    <Box
+      sx={{
+        minHeight: "50vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 2,
+      }}
+    >
+      <CircularProgress
+        size={50}
+        sx={{
+          color: "#111827",
+        }}
+      />
+
+      <Typography
+        variant="h6"
+        sx={{
+          color: "#111827",
+          fontWeight: 600,
+        }}
+      >
+        Loading Products...
+      </Typography>
+    </Box>
+  );
+}
 
     return (
       <Grid container spacing={3} justifyContent="center">

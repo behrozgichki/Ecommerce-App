@@ -127,9 +127,9 @@ export default function ProductCard({
           className="product-image"
           component="img"
 
-          image={product.image}
+          image={product.thumbnail}
 
-          alt={product.name}
+          alt={product.title}
 
           sx={{
             position: 'absolute',
@@ -299,8 +299,8 @@ export default function ProductCard({
 
           {formatPrice(
             hasSale 
-            ? product.priceCents
-            : product.priceCents
+            ? product.price
+            : product.price
           )}
 
         </Typography>
