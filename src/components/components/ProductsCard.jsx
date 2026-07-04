@@ -11,6 +11,8 @@ import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
 import Rating from '@mui/material/Rating'
 import { Link } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../../config/reduxconfig/reducers/CartSlice'
 
 
 function HeartIcon({ filled }) {
@@ -64,6 +66,7 @@ export default function ProductCard({
     setAddingToCart(true)
 
     setTimeout(() => {
+      dispatch(addProduct({product}))
       setAddingToCart(false)
       onAddToCart?.(product)
     }, 600)
@@ -83,7 +86,7 @@ export default function ProductCard({
 
   }
 
-
+  const dispatch = useDispatch()
   return (
 
     <Card

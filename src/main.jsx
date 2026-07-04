@@ -6,8 +6,12 @@ import Register from './components/Register.jsx'
 import Products from './components/Products.jsx'
 import Cart from './components/Cart.jsx'
 import ProductsDetails from './components/ProductsDetails.jsx'
+import { Provider } from 'react-redux'
+import store from './config/reduxconfig/store/Store.js'
 
 createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+
  <BrowserRouter>
  <Routes>
   <Route path='/' element={<App/>}/>
@@ -20,4 +24,5 @@ createRoot(document.getElementById('root')).render(
 
  </Routes>
  </BrowserRouter>
+    </Provider>
 )

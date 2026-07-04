@@ -13,6 +13,9 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router';
+import { useSelector } from 'react-redux';
+import { Badge } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 const pages = [
     { name: 'Login', path:"/login" },
@@ -24,6 +27,7 @@ const pages = [
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+    const cart = useSelector((state)=> state.cart)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -124,17 +128,35 @@ function ResponsiveAppBar() {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page.name}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                                component={Link}
-                                to={page.path}
-                            >
-                                {page.name}
-                            </Button>
-                        ))}
+                      {pages.map((page) => (
+  page.name === "Cart" ? (
+    <Button
+      key={page.name}
+      component={Link}
+      to={page.path}
+      color="inherit"
+      sx={{ my: 2 }}
+    >
+      <Badge badgeContent={cart.length} color="error">
+        <ShoppingCartIcon />
+      </Badge>
+
+      <Typography sx={{ ml: 1 }}>
+        Cart
+      </Typography>
+    </Button>
+  ) : (
+    <Button
+      key={page.name}
+      component={Link}
+      to={page.path}
+      onClick={handleCloseNavMenu}
+      sx={{ my: 2, color: "white" }}
+    >
+      {page.name}
+    </Button>
+  )
+))}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
