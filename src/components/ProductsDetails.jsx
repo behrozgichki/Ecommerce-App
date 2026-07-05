@@ -9,6 +9,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../config/reduxconfig/reducers/CartSlice";
 
 
 const ProductsDetails = () => {
@@ -38,6 +40,8 @@ const ProductsDetails = () => {
 
   console.log(products);
 
+
+  const dispatch = useDispatch()
   if (loading) {
     return <Box
           sx={{
@@ -194,6 +198,9 @@ const ProductsDetails = () => {
             variant="contained"
             size="large"
             color="primary"
+            onClick={()=> dispatch(addProduct({
+              product : products
+            }))}
           >
             Add To Cart
           </Button>
